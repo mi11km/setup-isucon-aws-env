@@ -24,6 +24,10 @@ aws configure
 ```shell
 ssh -i id_rsa_ec2 {user}@{ip_address}
 ```
+ログイン後には下記コマンドを実行
+```shell
+sudo -i -u isucon
+```
 
 ## tear down
 下記スクリプト実行で立ち上げたすべてのAWSリソースとローカルのキーペアが削除

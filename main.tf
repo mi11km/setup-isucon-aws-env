@@ -15,8 +15,8 @@ provider "aws" {
 
 # variables
 variable "ami_id" {
-  type = string
-  default = "ami-03bbe60df80bdccc0"    # デフォルトは第１０回予選のやつ
+  type    = string
+  default = "ami-03bbe60df80bdccc0" # デフォルトは第１０回予選のやつ
 }
 
 variable "key_name" {
