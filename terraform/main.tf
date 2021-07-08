@@ -34,20 +34,3 @@ resource "aws_key_pair" "ssh-key-pair" {
   key_name   = var.key_name
   public_key = file(var.public_key)
 }
-
-# ec2 instance
-resource "aws_instance" "test_server" {
-  ami           = var.ami_id
-  instance_type = "t2.micro"
-  tags = {
-    Name = "ISUCONTestServer"
-  }
-  key_name               = var.key_name
-  vpc_security_group_ids = [aws_security_group.defalut_security_group.id]
-  subnet_id              = aws_subnet.default_public_subnet.id
-}
-
-output "ip_address" {
-  value = aws_instance.test_server.public_ip
-}
-
