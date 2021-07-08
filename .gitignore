@@ -1,4 +1,9 @@
-terraform.tfstate*
-.terraform.lock.hcl
-.terraform/
+# terraform
+terraform/terraform.tfstate*
+terraform/.terraform.lock.hcl
+terraform/.terraform.tfstate.lock.info
+terraform/.terraform/
+terraform/id_rsa_ec2*
+
+# editor
 .idea/
