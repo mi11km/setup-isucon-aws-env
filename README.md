@@ -18,7 +18,8 @@ aws configure
 [matsuu/aws-isucon: ISUCON過去問をAWS環境で構築するための一式](https://github.com/matsuu/aws-isucon) から選んだAMIのIDを引数に、下記スクリプト実行でAWSに自動的にEC2インスタンスが立ち上がって、ssh接続できるようになる。
 (適所、yesなどを打ってください)
 ```shell
-./terraform/setup.sh {ami_id}
+cd terraform/
+./setup.sh {ami_id}
 ```
 出力されたip_addressと先ほど選んだAMIのユーザーを用いて、ssh接続
 ```shell
@@ -32,5 +33,6 @@ sudo -i -u isucon
 ## tear down
 下記スクリプト実行で立ち上げたすべてのAWSリソースとローカルのキーペアが削除
 ```shell
-./terraform/tearDown.sh
+cd terraform/
+./tearDown.sh
 ```
