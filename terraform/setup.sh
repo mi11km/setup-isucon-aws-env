@@ -4,11 +4,13 @@ webhook_url=https://discord.com/api/webhooks/862698740049903616/3OGleL7xA6k1FVsz
 ssh_key_name=id_rsa_ec2
 
 send_ip() {
-  ip=$(terraform apply -auto-approve -var "ami_id=$1" | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | tail -3 | tr '\n' ' ')
-  curl -X POST \
+  ip=($(terraform apply -auto-approve -var "ami_id=$1" | grep -Eo '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}' | tail -3 | tr '\n' ' '))
+  for i in ${ip[@]} ; do
+    curl -X POST \
     -H "Content-Type: application/json" \
-    -d '{"username": "ip addressだよー", "content": "'${ip}'"}' \
+    -d '{"username": "ip addressだよー", "content": "ssh -i id_rsa_ec2 ubuntu@'$i'"}' \
     ${webhook_url}
+  done
 }
 
 
