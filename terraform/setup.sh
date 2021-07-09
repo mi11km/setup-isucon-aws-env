@@ -20,7 +20,7 @@ terraform init
 terraform fmt
 terraform validate
 
-if [ $# != 1 ]; then
+if [ $# -ne 1 ]; then
   send_ip ami-03bbe60df80bdccc0
 else
   send_ip $1
