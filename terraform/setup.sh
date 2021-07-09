@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 webhook_url=https://discord.com/api/webhooks/862698740049903616/3OGleL7xA6k1FVszTmVd9wS4GDx_1SfRDQXqGSR0kGKp3AdhwnKg0T8ubccbyM_qDtky
 ssh_key_name=id_rsa_ec2
