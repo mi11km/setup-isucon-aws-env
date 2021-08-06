@@ -2,7 +2,7 @@
 
 webhook_url=https://discord.com/api/webhooks/862698740049903616/3OGleL7xA6k1FVszTmVd9wS4GDx_1SfRDQXqGSR0kGKp3AdhwnKg0T8ubccbyM_qDtky
 ssh_key_name=id_rsa_ec2
-number_of_server=1
+number_of_server=4
 username=ubuntu
 
 send_ip() {
@@ -11,13 +11,12 @@ send_ip() {
   # send ssh connect command to discord channel
   # shellcheck disable=SC2068
   for i in ${ip[@]}; do
-    #    curl -X POST \
-    #      -H "Content-Type: application/json" \
-    #      -d '{"username": "ip addressだよー", "content": "ssh -i '${ssh_key_name}' '${username}'@'$i'"}' \
-    #      ${webhook_url}
+      curl -X POST \
+        -H "Content-Type: application/json" \
+        -d '{"username": "ip addressだよー", "content": "ssh -i '${ssh_key_name}' '${username}'@'$i'"}' \
+        ${webhook_url}
     echo "ssh -i $ssh_key_name $username@$i"
   done
-  echo "after connecting server, run the command:"
   echo "sudo -i -u isucon"
 }
 
@@ -34,6 +33,6 @@ else
 fi
 
 # send ssh secret key to discord channel
-#curl -F 'payload_json={"content": "洩らしちゃだめよ"}' \
-#  -F "file1=@${ssh_key_name}" \
-#  ${webhook_url}
+curl -F 'payload_json={"content": "洩らしちゃだめよ"}' \
+  -F "file1=@${ssh_key_name}" \
+  ${webhook_url}
