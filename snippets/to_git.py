@@ -6,12 +6,15 @@ import subprocess
 def to_git(remote_repository: str, email: str, username: str):
     if not remote_repository:
         raise Exception("remote_repository must be set")
+    if not email:
+        raise Exception("email must be set")
+    if not username:
+        raise Exception("username must be set")
         
     readme = "README.md"
-    if os.path.exists(readme):
-        os.remove(readme)
-    with open(readme, "w") as f:
-        f.write("# ISUCON 11 予選")
+    if not os.path.exists(readme):
+        with open(readme, "w") as f:
+            f.write("# ISUCON 11 予選")
 
     add_statement = ["git", "add", readme]  + list(sys.argv[1:])
     statements = (
@@ -48,20 +51,20 @@ Host github
         f.write(cfg)
 
     print("以下をGithubアカウントの公開鍵としてセットしてください")
+    print()
     subprocess.call(["cat", "id_rsa.pub"])
+    print()
     os.chdir(current_dir)
+
 
 def clean_up():
     if os.path.exists(".git"):
         shutil.rmtree(".git/") 
-    ssh_dir = os.getenv("HOME") + "/.ssh/"
-    if os.path.exists(ssh_dir):
-        shutil.rmtree(ssh_dir)
 
 
 if __name__ == "__main__":
+    generate_ssh_key_and_conf()
     while True:
-        generate_ssh_key_and_conf()
         print("Pushするレポジトリ、アカウントのemail、ユーザー名を入力してください。ex) git@github.com:team-kinoko/test.git")
         repository = input("Repository >> ")
         email = input("Email >> ")
