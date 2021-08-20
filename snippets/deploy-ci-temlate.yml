@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  SERVER_USERNAME: ubuntu  # FIXME
+  SERVER_HOST: 54.250.27.108 # FIXME
+  SSH_PORT: 22
+  SERVER_DEPLOY_DIR: /home/isucon/isuumo/webapp # FIXME
+  APP_SERVICE_NAME: isuumo.python # FIXME
+  WEB_SERVER_NAME: nginx  # FIXME
+
+jobs:
+  deploy:
+    name: Deploy to EC2
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Connect with SSH and Deploy
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ env.SERVER_HOST }}
+          username: ${{ env.SERVER_USERNAME }}
+          port: ${{ env.SSH_PORT }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}  # TODO レポジトリにセットする
+          script: | # FIXME ユーザー指定の部分
+            sudo su isucon -c "cd ${{ env.SERVER_DEPLOY_DIR }} && \
+              git pull origin main && \
+              sudo systemctl restart ${{ env.APP_SERVICE_NAME }} && \
+              sudo systemctl restart ${{ env.WEB_SERVER_NAME }}"
